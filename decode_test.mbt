@@ -2,6 +2,7 @@
 // Original source: https://github.com/denoland/std/tree/42fd485b615d7cc647c7d2f12610c42d68a597e6/msgpack
 
 // Test decoding positive fixint
+///|
 test "decode positive fixint" {
   for i = 0; i <= 127; i = i + 1 {
     let data = create_bytes([i])
@@ -14,6 +15,8 @@ test "decode positive fixint" {
 }
 
 // Test decoding basic values
+
+///|
 test "decode basic values" {
   // Test nil
   let nil_data = create_bytes([0xc0])
@@ -22,7 +25,7 @@ test "decode basic values" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test false
   let false_data = create_bytes([0xc2])
   let false_result = decode(false_data)
@@ -30,7 +33,7 @@ test "decode basic values" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test true
   let true_data = create_bytes([0xc3])
   let true_result = decode(true_data)
@@ -41,6 +44,8 @@ test "decode basic values" {
 }
 
 // Test error cases
+
+///|
 test "error cases" {
   // Test empty data
   let empty_data = Bytes::from_array([])

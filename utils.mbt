@@ -1,6 +1,7 @@
 // Test utility functions
 
 // Helper function: create byte array
+///|
 pub fn create_bytes(values : Array[Int]) -> Bytes {
   let byte_array : Array[Byte] = []
   for value in values {
@@ -10,6 +11,8 @@ pub fn create_bytes(values : Array[Int]) -> Bytes {
 }
 
 // Helper function: compare byte arrays
+
+///|
 pub fn bytes_equal(a : Bytes, b : Bytes) -> Bool {
   if a.length() != b.length() {
     return false

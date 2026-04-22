@@ -1,0 +1,7 @@
+import {
+  "hackwaly/msgpack",
+}
+
+options(
+  is_main: true,
+)

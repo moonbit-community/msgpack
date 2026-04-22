@@ -2,6 +2,7 @@
 // Original source: https://github.com/denoland/std/tree/42fd485b615d7cc647c7d2f12610c42d68a597e6/msgpack
 
 // Test round-trip encode/decode
+///|
 test "round trip encode decode" {
   // Test integers
   let test_values = [0, 1, -1, 42, -42, 127, -32]
@@ -13,7 +14,7 @@ test "round trip encode decode" {
       _ => inspect(false, content="true")
     }
   }
-  
+
   // Test strings
   let test_strings = ["", "hello", "world", "A"]
   for str_val in test_strings {
@@ -24,7 +25,7 @@ test "round trip encode decode" {
       _ => inspect(false, content="true")
     }
   }
-  
+
   // Test booleans
   let encoded_true = encode(create_bool(true))
   let decoded_true = decode(encoded_true)
@@ -32,14 +33,14 @@ test "round trip encode decode" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   let encoded_false = encode(create_bool(false))
   let decoded_false = decode(encoded_false)
   match decoded_false {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test nil
   let encoded_nil = encode(create_nil())
   let decoded_nil = decode(encoded_nil)
@@ -50,6 +51,8 @@ test "round trip encode decode" {
 }
 
 // Test complex data structures
+
+///|
 test "complex data structures" {
   // Test nested array
   let inner_array = create_array([create_int(1), create_int(2)])
@@ -60,13 +63,13 @@ test "complex data structures" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test mixed array
   let mixed_array = create_array([
     create_int(42),
     create_string("hello"),
     create_bool(true),
-    create_nil()
+    create_nil(),
   ])
   let encoded_mixed = encode(mixed_array)
   let decoded_mixed = decode(encoded_mixed)
@@ -77,6 +80,8 @@ test "complex data structures" {
 }
 
 // Test edge cases
+
+///|
 test "edge cases" {
   // Test empty string
   let empty_str = create_string("")
@@ -86,7 +91,7 @@ test "edge cases" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test zero
   let zero_int = create_int(0)
   let encoded_zero = encode(zero_int)
@@ -95,7 +100,7 @@ test "edge cases" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test maximum positive fixint
   let max_fixint = create_int(127)
   let encoded_max = encode(max_fixint)
@@ -104,7 +109,7 @@ test "edge cases" {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test minimum negative fixint
   let min_fixint = create_int(-32)
   let encoded_min = encode(min_fixint)
@@ -116,6 +121,8 @@ test "edge cases" {
 }
 
 // Test large data structures
+
+///|
 test "large data structures" {
   // Test large array - create smaller for performance
   let values : Array[Value] = []
@@ -132,6 +139,8 @@ test "large data structures" {
 }
 
 // Test data type validation
+
+///|
 test "data type validation" {
   // Test consistent encoding/decoding for all basic types
   let test_data = [
@@ -144,7 +153,7 @@ test "data type validation" {
     create_string("test"),
     create_array([create_int(1), create_int(2)]),
   ]
-  
+
   for data in test_data {
     let encoded = encode(data)
     let decoded = decode(encoded)
@@ -156,6 +165,8 @@ test "data type validation" {
 }
 
 // Compatibility tests - test Deno sample data
+
+///|
 test "deno compatibility tests" {
   // Test data structure from testdata/1.json
   let test_map = Map::new()
@@ -167,23 +178,23 @@ test "deno compatibility tests" {
   test_map["false"] = create_bool(false)
   test_map["string0"] = create_string("")
   test_map["string1"] = create_string("A")
-  
+
   let encoded_complex = encode(create_map(test_map))
   let decoded_complex = decode(encoded_complex)
   match decoded_complex {
     Ok(_) => inspect(true, content="true")
     _ => inspect(false, content="true")
   }
-  
+
   // Test array with different types
   let mixed_types_array = create_array([
     create_int(1),
     create_string("foo"),
     create_bool(false),
     create_nil(),
-    create_array([create_int(1), create_int(2)])
+    create_array([create_int(1), create_int(2)]),
   ])
-  
+
   let encoded_mixed_types = encode(mixed_types_array)
   let decoded_mixed_types = decode(encoded_mixed_types)
   match decoded_mixed_types {
@@ -193,15 +204,17 @@ test "deno compatibility tests" {
 }
 
 // Performance test (simplified version)
+
+///|
 test "basic performance test" {
   // Create a reasonably sized data structure
   let perf_map = Map::new()
   for i = 0; i < 10; i = i + 1 {
     perf_map["key\{i}"] = create_int(i)
   }
-  
+
   let perf_data = create_map(perf_map)
-  
+
   // Test multiple encode/decode cycles
   for i = 0; i < 5; i = i + 1 {
     let encoded = encode(perf_data)

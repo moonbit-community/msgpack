@@ -32,7 +32,10 @@ pub fn decode(data : Bytes) -> Result[Value, MsgPackError] {
       if data.length() < 5 {
         return Err(InvalidData("Incomplete uint32"))
       }
-      let value = (data[1].to_int() << 24) | (data[2].to_int() << 16) | (data[3].to_int() << 8) | data[4].to_int()
+      let value = (data[1].to_int() << 24) |
+        (data[2].to_int() << 16) |
+        (data[3].to_int() << 8) |
+        data[4].to_int()
       Ok(Int(value))
     }
     0xd0 => {
@@ -58,7 +61,10 @@ pub fn decode(data : Bytes) -> Result[Value, MsgPackError] {
       if data.length() < 5 {
         return Err(InvalidData("Incomplete int32"))
       }
-      let value = (data[1].to_int() << 24) | (data[2].to_int() << 16) | (data[3].to_int() << 8) | data[4].to_int()
+      let value = (data[1].to_int() << 24) |
+        (data[2].to_int() << 16) |
+        (data[3].to_int() << 8) |
+        data[4].to_int()
       // For 32-bit signed integers, we need to handle the sign bit
       // Note: MoonBit's Int type limitations require simplified handling
       let signed_value = value
@@ -134,7 +140,11 @@ pub fn decode(data : Bytes) -> Result[Value, MsgPackError] {
 // Helper functions for decoding complex types
 
 ///|
-fn decode_array(data : Bytes, start_offset : Int, length : Int) -> Result[(Value, Int), MsgPackError] {
+fn decode_array(
+  data : Bytes,
+  start_offset : Int,
+  length : Int,
+) -> Result[(Value, Int), MsgPackError] {
   let array : Array[Value] = []
   let mut offset = start_offset
   for i = 0; i < length; i = i + 1 {
@@ -153,7 +163,11 @@ fn decode_array(data : Bytes, start_offset : Int, length : Int) -> Result[(Value
 }
 
 ///|
-fn decode_map(data : Bytes, start_offset : Int, length : Int) -> Result[(Value, Int), MsgPackError] {
+fn decode_map(
+  data : Bytes,
+  start_offset : Int,
+  length : Int,
+) -> Result[(Value, Int), MsgPackError] {
   let map = Map::new()
   let mut offset = start_offset
   for i = 0; i < length; i = i + 1 {
@@ -165,7 +179,7 @@ fn decode_map(data : Bytes, start_offset : Int, length : Int) -> Result[(Value, 
       Ok((key_value, new_offset1)) => {
         offset = new_offset1
         match key_value {
-          String(key) => {
+          String(key) =>
             // Decode value
             match decode_value_at_offset(data, offset) {
               Ok((value, new_offset2)) => {
@@ -174,7 +188,6 @@ fn decode_map(data : Bytes, start_offset : Int, length : Int) -> Result[(Value, 
               }
               Err(e) => return Err(e)
             }
-          }
           _ => return Err(InvalidData("Map key must be string"))
         }
       }
@@ -185,7 +198,10 @@ fn decode_map(data : Bytes, start_offset : Int, length : Int) -> Result[(Value, 
 }
 
 ///|
-fn decode_value_at_offset(data : Bytes, offset : Int) -> Result[(Value, Int), MsgPackError] {
+fn decode_value_at_offset(
+  data : Bytes,
+  offset : Int,
+) -> Result[(Value, Int), MsgPackError] {
   if offset >= data.length() {
     return Err(InvalidData("Offset out of bounds"))
   }
@@ -215,8 +231,10 @@ fn decode_value_at_offset(data : Bytes, offset : Int) -> Result[(Value, Int), Ms
       if offset + 4 >= data.length() {
         return Err(InvalidData("Incomplete uint32"))
       }
-      let value = (data[offset + 1].to_int() << 24) | (data[offset + 2].to_int() << 16) |
-                  (data[offset + 3].to_int() << 8) | data[offset + 4].to_int()
+      let value = (data[offset + 1].to_int() << 24) |
+        (data[offset + 2].to_int() << 16) |
+        (data[offset + 3].to_int() << 8) |
+        data[offset + 4].to_int()
       Ok((Int(value), offset + 5))
     }
     0xdc => {
@@ -224,7 +242,8 @@ fn decode_value_at_offset(data : Bytes, offset : Int) -> Result[(Value, Int), Ms
       if offset + 2 >= data.length() {
         return Err(InvalidData("Incomplete array16"))
       }
-      let array_length = (data[offset + 1].to_int() << 8) | data[offset + 2].to_int()
+      let array_length = (data[offset + 1].to_int() << 8) |
+        data[offset + 2].to_int()
       decode_array(data, offset + 3, array_length)
     }
     0xde => {
@@ -232,7 +251,8 @@ fn decode_value_at_offset(data : Bytes, offset : Int) -> Result[(Value, Int), Ms
       if offset + 2 >= data.length() {
         return Err(InvalidData("Incomplete map16"))
       }
-      let map_length = (data[offset + 1].to_int() << 8) | data[offset + 2].to_int()
+      let map_length = (data[offset + 1].to_int() << 8) |
+        data[offset + 2].to_int()
       decode_map(data, offset + 3, map_length)
     }
     0xd0 => {
@@ -258,8 +278,10 @@ fn decode_value_at_offset(data : Bytes, offset : Int) -> Result[(Value, Int), Ms
       if offset + 4 >= data.length() {
         return Err(InvalidData("Incomplete int32"))
       }
-      let value = (data[offset + 1].to_int() << 24) | (data[offset + 2].to_int() << 16) |
-                  (data[offset + 3].to_int() << 8) | data[offset + 4].to_int()
+      let value = (data[offset + 1].to_int() << 24) |
+        (data[offset + 2].to_int() << 16) |
+        (data[offset + 3].to_int() << 8) |
+        data[offset + 4].to_int()
       Ok((Int(value), offset + 5))
     }
     _ =>

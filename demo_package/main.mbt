@@ -59,7 +59,7 @@ fn main {
     Ok(_) => println("✗ Int(42) round-trip failed: wrong value")
     Err(e) => println("✗ Int(42) round-trip failed: " + e.to_string())
   }
-  
+
   println("\n=== Demo Complete ===")
   println("MessagePack library successfully demonstrates basic functionality!")
 }

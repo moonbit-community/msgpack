@@ -1,0 +1,101 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "hackwaly/msgpack"
+
+// Values
+pub const ARRAY16_CODE : Int = 0xdc
+
+pub const ARRAY32_CODE : Int = 0xdd
+
+pub const BIN8_CODE : Int = 0xc4
+
+pub const FALSE_CODE : Int = 0xc2
+
+pub const FIXARRAY_CODE : Int = 0x90
+
+pub const FIXMAP_CODE : Int = 0x80
+
+pub const FIXSTR_CODE : Int = 0xa0
+
+pub const FLOAT64_CODE : Int = 0xcb
+
+pub const INT16_CODE : Int = 0xd1
+
+pub const INT32_CODE : Int = 0xd2
+
+pub const INT8_CODE : Int = 0xd0
+
+pub const MAP16_CODE : Int = 0xde
+
+pub const MAP32_CODE : Int = 0xdf
+
+pub const NEGATIVE_FIXINT_CODE : Int = 0xe0
+
+pub const NIL_CODE : Int = 0xc0
+
+pub const STR16_CODE : Int = 0xda
+
+pub const STR32_CODE : Int = 0xdb
+
+pub const STR8_CODE : Int = 0xd9
+
+pub const TRUE_CODE : Int = 0xc3
+
+pub const UINT32_CODE : Int = 0xce
+
+pub fn bytes_equal(Bytes, Bytes) -> Bool
+
+pub fn create_array(Array[Value]) -> Value
+
+pub fn create_binary(Bytes) -> Value
+
+pub fn create_bool(Bool) -> Value
+
+pub fn create_bytes(Array[Int]) -> Bytes
+
+pub fn create_float(Double) -> Value
+
+pub fn create_int(Int) -> Value
+
+pub fn create_int64(Int64) -> Value
+
+pub fn create_map(Map[String, Value]) -> Value
+
+pub fn create_nil() -> Value
+
+pub fn create_string(String) -> Value
+
+pub fn create_uint64(UInt64) -> Value
+
+pub fn decode(Bytes) -> Result[Value, MsgPackError]
+
+pub fn encode(Value) -> Bytes
+
+// Errors
+
+// Types and methods
+pub enum MsgPackError {
+  TypeMismatch(String)
+  InvalidData(String)
+}
+pub fn MsgPackError::to_string(Self) -> String
+
+pub enum Value {
+  Nil
+  Bool(Bool)
+  Int(Int)
+  Int64(Int64)
+  UInt64(UInt64)
+  Float(Double)
+  String(String)
+  Binary(Bytes)
+  Array(Array[Value])
+  Map(Map[String, Value])
+}
+pub fn Value::to_bool(Self) -> Result[Bool, MsgPackError]
+pub fn Value::to_int(Self) -> Result[Int, MsgPackError]
+pub fn Value::to_string(Self) -> Result[String, MsgPackError]
+
+// Type aliases
+
+// Traits
+

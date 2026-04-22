@@ -153,7 +153,7 @@ fn encode_to_buffer(buffer : Buffer, value : Value) -> Unit {
       }
     }
     Map(map) => {
-      let len = map.size()
+      let len = map.length()
       if len <= 15 {
         // fixmap
         buffer.write_byte(FIXMAP_CODE | len)

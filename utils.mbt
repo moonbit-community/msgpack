@@ -1,6 +1,7 @@
 // Test utility functions
 
 // Helper function: create byte array
+
 ///|
 pub fn create_bytes(values : Array[Int]) -> Bytes {
   let byte_array : Array[Byte] = []

@@ -2,6 +2,7 @@
 // Original source: https://github.com/denoland/std/tree/42fd485b615d7cc647c7d2f12610c42d68a597e6/msgpack
 
 // Test decoding positive fixint
+
 ///|
 test "decode positive fixint" {
   for i = 0; i <= 127; i = i + 1 {

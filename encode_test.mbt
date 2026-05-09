@@ -101,13 +101,13 @@ test "encode arrays" {
 ///|
 test "encode maps" {
   // Test empty map
-  let empty_map = Map::new()
+  let empty_map = @builtin.Map([])
   let result_empty = encode(create_map(empty_map))
   let expected_empty = create_bytes([0x80])
   inspect(bytes_equal(result_empty, expected_empty), content="true")
 
   // Test simple map - we'll just test that it encodes without error
-  let simple_map = Map::new()
+  let simple_map = @builtin.Map([])
   simple_map["a"] = create_int(2)
   simple_map["b"] = create_int(3)
   let result_simple = encode(create_map(simple_map))

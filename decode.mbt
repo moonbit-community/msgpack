@@ -168,7 +168,7 @@ fn decode_map(
   start_offset : Int,
   length : Int,
 ) -> Result[(Value, Int), MsgPackError] {
-  let map = Map::new()
+  let map = @builtin.Map([])
   let mut offset = start_offset
   for i = 0; i < length; i = i + 1 {
     if offset >= data.length() {

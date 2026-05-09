@@ -170,7 +170,7 @@ test "data type validation" {
 ///|
 test "deno compatibility tests" {
   // Test data structure from testdata/1.json
-  let test_map = Map::new()
+  let test_map = @builtin.Map([])
   test_map["int0"] = create_int(0)
   test_map["int1"] = create_int(1)
   test_map["int1-"] = create_int(-1)
@@ -209,7 +209,7 @@ test "deno compatibility tests" {
 ///|
 test "basic performance test" {
   // Create a reasonably sized data structure
-  let perf_map = Map::new()
+  let perf_map = @builtin.Map([])
   for i = 0; i < 10; i = i + 1 {
     perf_map["key\{i}"] = create_int(i)
   }

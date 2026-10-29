@@ -9,7 +9,7 @@ pub enum Value {
   // Boolean value
   Bool(Bool)
   // 32-bit signed integer
-  Int(Int)
+  Int(Int32)
   // 64-bit signed integer
   Int64(Int64)
   // 64-bit unsigned integer
@@ -49,66 +49,66 @@ pub fn MsgPackError::to_string(self : MsgPackError) -> String {
 // MessagePack format code constants
 
 ///|
-pub const NIL_CODE : Int = 0xc0
+pub const NIL_CODE : Int32 = 0xc0
 
 ///|
-pub const FALSE_CODE : Int = 0xc2
+pub const FALSE_CODE : Int32 = 0xc2
 
 ///|
-pub const TRUE_CODE : Int = 0xc3
+pub const TRUE_CODE : Int32 = 0xc3
 
 ///|
-pub const INT8_CODE : Int = 0xd0
+pub const INT8_CODE : Int32 = 0xd0
 
 ///|
-pub const INT16_CODE : Int = 0xd1
+pub const INT16_CODE : Int32 = 0xd1
 
 ///|
-pub const INT32_CODE : Int = 0xd2
+pub const INT32_CODE : Int32 = 0xd2
 
 ///|
-pub const UINT32_CODE : Int = 0xce
+pub const UINT32_CODE : Int32 = 0xce
 
 ///|
-pub const FLOAT64_CODE : Int = 0xcb
+pub const FLOAT64_CODE : Int32 = 0xcb
 
 ///|
-pub const FIXSTR_CODE : Int = 0xa0
+pub const FIXSTR_CODE : Int32 = 0xa0
 
 ///|
-pub const STR8_CODE : Int = 0xd9
+pub const STR8_CODE : Int32 = 0xd9
 
 ///|
-pub const STR16_CODE : Int = 0xda
+pub const STR16_CODE : Int32 = 0xda
 
 ///|
-pub const STR32_CODE : Int = 0xdb
+pub const STR32_CODE : Int32 = 0xdb
 
 ///|
-pub const BIN8_CODE : Int = 0xc4
+pub const BIN8_CODE : Int32 = 0xc4
 
 ///|
-pub const FIXARRAY_CODE : Int = 0x90
+pub const FIXARRAY_CODE : Int32 = 0x90
 
 ///|
-pub const ARRAY16_CODE : Int = 0xdc
+pub const ARRAY16_CODE : Int32 = 0xdc
 
 ///|
-pub const ARRAY32_CODE : Int = 0xdd
+pub const ARRAY32_CODE : Int32 = 0xdd
 
 ///|
-pub const FIXMAP_CODE : Int = 0x80
+pub const FIXMAP_CODE : Int32 = 0x80
 
 ///|
-pub const MAP16_CODE : Int = 0xde
+pub const MAP16_CODE : Int32 = 0xde
 
 ///|
-pub const MAP32_CODE : Int = 0xdf
+pub const MAP32_CODE : Int32 = 0xdf
 
 // Negative fixint 0xe0 - 0xff
 
 ///|
-pub const NEGATIVE_FIXINT_CODE : Int = 0xe0
+pub const NEGATIVE_FIXINT_CODE : Int32 = 0xe0
 
 // Helper functions for creating values
 
@@ -123,7 +123,7 @@ pub fn create_bool(b : Bool) -> Value {
 }
 
 ///|
-pub fn create_int(i : Int) -> Value {
+pub fn create_int(i : Int32) -> Value {
   Int(i)
 }
 
@@ -173,7 +173,7 @@ pub fn Value::to_string(self : Value) -> Result[String, MsgPackError] {
 }
 
 ///|
-pub fn Value::to_int(self : Value) -> Result[Int, MsgPackError] {
+pub fn Value::to_int(self : Value) -> Result[Int32, MsgPackError] {
   match self {
     Int(i) => Ok(i)
     _ => Err(TypeMismatch("Expected int"))

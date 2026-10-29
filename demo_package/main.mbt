@@ -23,9 +23,9 @@ fn main {
   println("\n2. Testing decoding:")
 
   // Test decoding with manually created byte arrays
-  let nil_test_data = Bytes::from_array([(0xc0 : Int).to_byte()])
-  let bool_test_data = Bytes::from_array([(0xc3 : Int).to_byte()])
-  let int_test_data = Bytes::from_array([(42 : Int).to_byte()])
+  let nil_test_data = Bytes::from_array([(0xc0 : Int32).to_byte()])
+  let bool_test_data = Bytes::from_array([(0xc3 : Int32).to_byte()])
+  let int_test_data = Bytes::from_array([(42 : Int32).to_byte()])
   match @msgpack.decode(nil_test_data) {
     Ok(@msgpack.Nil) => println("✓ Nil decoded successfully")
     Ok(_) => println("✗ Nil decoded to wrong type")

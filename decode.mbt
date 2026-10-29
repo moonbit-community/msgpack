@@ -113,7 +113,7 @@ pub fn decode(data : Bytes) -> Result[Value, MsgPackError] {
         let mut str_val = ""
         // For now, create a simple string from bytes
         for byte in str_bytes {
-          let char_val = Int::unsafe_to_char(byte.to_int())
+          let char_val = Int32::unsafe_to_char(byte.to_int())
           str_val = str_val + char_val.to_string()
         }
         Ok(String(str_val))
@@ -142,9 +142,9 @@ pub fn decode(data : Bytes) -> Result[Value, MsgPackError] {
 ///|
 fn decode_array(
   data : Bytes,
-  start_offset : Int,
-  length : Int,
-) -> Result[(Value, Int), MsgPackError] {
+  start_offset : Int32,
+  length : Int32,
+) -> Result[(Value, Int32), MsgPackError] {
   let array : Array[Value] = []
   let mut offset = start_offset
   for i = 0; i < length; i = i + 1 {
@@ -165,9 +165,9 @@ fn decode_array(
 ///|
 fn decode_map(
   data : Bytes,
-  start_offset : Int,
-  length : Int,
-) -> Result[(Value, Int), MsgPackError] {
+  start_offset : Int32,
+  length : Int32,
+) -> Result[(Value, Int32), MsgPackError] {
   let map = @builtin.Map([])
   let mut offset = start_offset
   for i = 0; i < length; i = i + 1 {
@@ -200,8 +200,8 @@ fn decode_map(
 ///|
 fn decode_value_at_offset(
   data : Bytes,
-  offset : Int,
-) -> Result[(Value, Int), MsgPackError] {
+  offset : Int32,
+) -> Result[(Value, Int32), MsgPackError] {
   if offset >= data.length() {
     return Err(InvalidData("Offset out of bounds"))
   }
@@ -303,7 +303,7 @@ fn decode_value_at_offset(
         }
         let mut str_val = ""
         for byte in str_bytes {
-          let char_val = Int::unsafe_to_char(byte.to_int())
+          let char_val = Int32::unsafe_to_char(byte.to_int())
           str_val = str_val + char_val.to_string()
         }
         Ok((String(str_val), offset + str_length + 1))

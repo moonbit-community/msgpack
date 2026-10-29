@@ -3,7 +3,7 @@
 // Helper function: create byte array
 
 ///|
-pub fn create_bytes(values : Array[Int]) -> Bytes {
+pub fn create_bytes(values : Array[Int32]) -> Bytes {
   let byte_array : Array[Byte] = []
   for value in values {
     byte_array.push(value.to_byte())

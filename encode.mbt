@@ -4,27 +4,27 @@
 
 ///|
 priv struct Buffer {
-  bytes : Array[Int]
+  bytes : Array[Int32]
 }
 
 ///|
 fn Buffer::new() -> Buffer {
-  { bytes: [] }
+  { bytes: [], }
 }
 
 ///|
-fn Buffer::write_byte(self : Buffer, byte : Int) -> Unit {
+fn Buffer::write_byte(self : Buffer, byte : Int32) -> Unit {
   self.bytes.push(byte)
 }
 
 ///|
-fn Buffer::write_u16(self : Buffer, value : Int) -> Unit {
+fn Buffer::write_u16(self : Buffer, value : Int32) -> Unit {
   self.write_byte((value >> 8) & 0xFF)
   self.write_byte(value & 0xFF)
 }
 
 ///|
-fn Buffer::write_u32(self : Buffer, value : Int) -> Unit {
+fn Buffer::write_u32(self : Buffer, value : Int32) -> Unit {
   self.write_byte((value >> 24) & 0xFF)
   self.write_byte((value >> 16) & 0xFF)
   self.write_byte((value >> 8) & 0xFF)
